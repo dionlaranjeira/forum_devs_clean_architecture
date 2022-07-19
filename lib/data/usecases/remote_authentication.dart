@@ -1,21 +1,33 @@
+import 'package:forum_devs_clean_architecture/data/model/model.dart';
+import 'package:forum_devs_clean_architecture/domain/entities/entities.dart';
+import 'package:forum_devs_clean_architecture/domain/helpers/domain_error.dart';
+
 import '../../domain/usecases/usecases.dart';
 
 import '../http/http.dart';
 
-class RemoteAuthentication {
+class RemoteAuthentication implements Authentication {
   final HttpClient httpClient;
   final String url;
 
   RemoteAuthentication({required this.httpClient, required this.url});
 
-  Future<void> auth(AuthenticationParams params) async {
+  Future<AccountEntity> auth(AuthenticationParams params) async {
 
     final body = RemoteAuthenticationParams.fromDomain(params).toJson();
-    await httpClient.request(
+
+    try{
+    final httpResponse = await httpClient.request(
         url: url,
         method:'post',
         body: body
     );
+    return RemoteAccountModel.fromJson(httpResponse!).toEntity();
+    } on HttpError catch(error) {
+      throw error == HttpError.unauthorized
+          ? DomainError.invalidCredentials
+          : DomainError.unexpected;
+    }
   }
 }
 

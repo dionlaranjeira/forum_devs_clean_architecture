@@ -102,7 +102,7 @@ void main(){
         .thenAnswer((_) async => {'invalid_key': 'invalid_value'});
 
     final future = sut.auth(params);
-
+//🥰
     expect(future, throwsA(DomainError.unexpected));
 
   });

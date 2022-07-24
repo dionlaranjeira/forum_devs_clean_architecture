@@ -23,14 +23,21 @@ class HttpAdapter implements HttpClient {
   }
 
   Map _handleResponse(Response response) {
-    if (response.statusCode == 200) {
-      return response.body.isNotEmpty ? jsonDecode(response.body) : null;
-    } else if (response.statusCode == 204) {
-      return null;
-    } else if  (response.statusCode == 400) {
-      throw HttpError.badRequest;
-    }else{
-      throw HttpError.serverError;
+    switch (response.statusCode) {
+      case 200:
+        return response.body.isNotEmpty ? jsonDecode(response.body) : null;
+      case 204:
+        return null;
+      case 400:
+        throw HttpError.badRequest;
+      case 401:
+        throw HttpError.unauthorized;
+      case 403:
+        throw HttpError.forbidden;
+      case 404:
+        throw HttpError.notFound;
+      default:
+        throw HttpError.serverError;
     }
   }
 }

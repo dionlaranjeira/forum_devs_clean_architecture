@@ -122,6 +122,33 @@ void main(){
 
     });
 
+    test('Should return Unauthorized if status code 401', () async {
+      mockResponse(401);
+
+      final future = sut.request(url: url, method: "post");
+
+      expect(future, throwsA(HttpError.unauthorized));
+
+    });
+
+    test('Should return Forbidden Error if status code 403', () async {
+      mockResponse(403);
+
+      final future = sut.request(url: url, method: "post");
+
+      expect(future, throwsA(HttpError.forbidden));
+
+    });
+
+    test('Should return Not found Error if status code 404', () async {
+      mockResponse(404);
+
+      final future = sut.request(url: url, method: "post");
+
+      expect(future, throwsA(HttpError.notFound));
+
+    });
+
   });
 
 }

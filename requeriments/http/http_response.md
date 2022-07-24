@@ -22,4 +22,4 @@
 1. Internal Server Error - 500
 
 > ## EXCEÇÃO - VERBO HTTP INVÁLIDO
-1. Internal Server Error - 500
+1.✅  Internal Server Error - 500

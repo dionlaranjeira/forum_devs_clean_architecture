@@ -4,17 +4,14 @@ import 'package:http/http.dart';
 
 import '../../data/http/http.dart';
 import 'package:meta/meta.dart';
-class HttpAdapter implements HttpClient {
 
+class HttpAdapter implements HttpClient {
   final Client client;
 
   HttpAdapter(this.client);
 
-  Future<Map> request({
-    @required String url,
-    @required String method,
-    Map body
-  }) async{
+  Future<Map> request(
+      {@required String url, @required String method, Map body}) async {
     final headers = {
       "content-type": "application/json",
       "accept": "application/json"
@@ -26,11 +23,12 @@ class HttpAdapter implements HttpClient {
   }
 
   Map _handleResponse(Response response) {
-      if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       return response.body.isNotEmpty ? jsonDecode(response.body) : null;
-    }else{
+    } else if (response.statusCode == 204) {
       return null;
+    } else {
+      throw HttpError.badRequest;
     }
   }
-
 }

@@ -75,6 +75,15 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/
+
+flutter_icons: #flutter pub run flutter_launcher_icons:main  -- execute this command in console terminal
+  ios: true
+  android: true
+  image_path_android: assets/icon/android.png
+  image_path_ios: assets/icon/ios.png
+  adaptive_icon_background: assets/icon/background.png
+  adaptive_icon_foreground: assets/icon/foreground.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forum_devs_clean_architecture/ui/components/components.dart';
 
 class LoginPage extends StatelessWidget {
 
@@ -7,36 +8,42 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          children: [Container(
-            child:
-            Image(image: AssetImage('assets/logo.png'))),
-            Text('LOGIN'),
-            Form(
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      icon: Icon(Icons.email),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            LoginHeader(),
+            Headline1(text:"login"),
+            Padding(
+              padding: const EdgeInsets.all(32),
+              child: Form(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        icon: Icon(Icons.email, color: Theme.of(context).primaryColorLight,),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
                     ),
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Senha',
-                      icon: Icon(Icons.lock),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8, bottom: 32),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Senha',
+                          icon: Icon(Icons.lock, color: Theme.of(context).primaryColorLight,),
+                        ),
+                        obscureText: true,
+                      ),
                     ),
-                    obscureText: true,
-                  ),
-                  RaisedButton(
-                    onPressed: (){},
-                    child: Text("Entrar"),
-                  ),
-                  FlatButton.icon(
+                    RaisedButton(
                       onPressed: (){},
-                      icon: Icon(Icons.person),
-                      label: Text("Criar conta"))
-                ],
+                      child: Text("Entrar"),
+                    ),
+                    FlatButton.icon(
+                        onPressed: (){},
+                        icon: Icon(Icons.person),
+                        label: Text("Criar conta"))
+                  ],
+                ),
               ),
             )
           ],
@@ -45,3 +52,5 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+
+

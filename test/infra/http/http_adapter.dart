@@ -53,7 +53,7 @@ void main(){
       await sut.request(url: url, method: "post", body: {"any_key": "any_value"});
 
       verify(client.post(
-          url,
+          Uri.parse(url),
           headers: {
             "content-type": "application/json",
             "accept": "application/json"

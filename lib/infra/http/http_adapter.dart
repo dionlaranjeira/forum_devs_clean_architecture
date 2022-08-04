@@ -22,7 +22,7 @@ class HttpAdapter implements HttpClient {
 
     try{
       if(method == 'post'){
-        response = await client.post(url, headers: headers, body: jsonBody);
+        response = await client.post(Uri.parse(url), headers: headers, body: jsonBody);
       }
     }catch(error){
       throw HttpError.serverError;

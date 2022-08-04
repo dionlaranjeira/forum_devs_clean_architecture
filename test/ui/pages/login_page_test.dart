@@ -12,12 +12,15 @@ void main(){
 
   LoginPresenter presenter;
   StreamController<String> emailErrorController;
+  StreamController<String> passwordErrorController;
 
   Future<void> loadPage(WidgetTester tester) async {
     presenter = LoginPresenterSpy();
     emailErrorController = StreamController<String>();
+    passwordErrorController = StreamController<String>();
 
     when(presenter.emailErrorStream).thenAnswer((_) => emailErrorController.stream);
+    when(presenter.passwordErrorStream).thenAnswer((_) => passwordErrorController.stream);
 
     final loginPage = MaterialApp(home: LoginPage(presenter));
     await tester.pumpWidget(loginPage);
@@ -25,6 +28,7 @@ void main(){
   
   tearDown((){
     emailErrorController.close();
+    passwordErrorController.close();
   });
   
   testWidgets("Should load with correct if inicial state", (WidgetTester tester) async{
@@ -97,7 +101,6 @@ void main(){
         emailTextChildren,
         findsOneWidget
     );
-
   });
 
   testWidgets("Should present no error email is invalid", (WidgetTester tester) async{
@@ -114,6 +117,14 @@ void main(){
 
   });
 
+  testWidgets("Should present error password is invalid", (WidgetTester tester) async{
+    await loadPage(tester);
 
-  
+    passwordErrorController.add('any error');
+    await tester.pump();
+
+    expect(find.text('any error'), findsOneWidget);
+
+  });
+
 }

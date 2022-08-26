@@ -1,20 +1,5 @@
+import 'package:forum_devs_clean_architecture/validations/validators/validators.dart';
 import 'package:test/test.dart';
-
-abstract class FieldValidation{
-  String get field;
-  String validate(String value);
-}
-
-class RequiredFieldValidation implements FieldValidation {
-  final String field;
-
-  RequiredFieldValidation(this.field);
-
-  String validate(String value) {
-    return value.isEmpty ? 'Campo obrigatório' : null;
-  }
-  
-}
 
 void main(){
 
@@ -30,11 +15,16 @@ void main(){
     expect(error, null);
   });
 
-  test('Show return error if value is not empty', (){
+  test('Show return error if value is empty', (){
     final error = sut.validate('');
 
     expect(error, 'Campo obrigatório');
   });
-  
+
+  test('Show return error if value is null', (){
+    final error = sut.validate(null);
+
+    expect(error, 'Campo obrigatório');
+  });
   
 }

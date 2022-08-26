@@ -9,8 +9,13 @@ class EmailValidation implements FieldValidation {
 
   EmailValidation(this.field);
 
-  String validate(String){
-    return null;
+  String validate(String value){
+
+    // var emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i;
+    final regex = RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
+
+    final isValid = value?.isNotEmpty != true || regex.hasMatch(value);
+    return isValid ? null : "Campo inválido";
   }
 
 }
@@ -42,6 +47,13 @@ void main(){
     final error = sut.validate(faker.internet.email());
 
     expect(error, null);
+
+  });
+
+  test('Show return error if email is inValid', (){
+    final error = sut.validate("dion");
+
+    expect(error, "Campo inválido");
 
   });
 

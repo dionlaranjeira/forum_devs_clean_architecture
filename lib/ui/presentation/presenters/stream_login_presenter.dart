@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:forum_devs_clean_architecture/domain/helpers/domain_error.dart';
 import 'package:forum_devs_clean_architecture/domain/usecases/authentication.dart';
+import 'package:forum_devs_clean_architecture/ui/pages/login/login_presenter.dart';
 import 'package:meta/meta.dart';
 import 'package:forum_devs_clean_architecture/ui/presentation/presenters/protocols/protocols.dart';
 
@@ -18,7 +19,7 @@ class LoginState{
       && password != null;
 }
 
-class StreamLoginPresenter{
+class StreamLoginPresenter implements LoginPresenter {
   final Validation validation;
   final Authentication authentication;
   var _controller = StreamController<LoginState>.broadcast();

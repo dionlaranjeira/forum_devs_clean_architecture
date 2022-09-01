@@ -4,5 +4,5 @@ import 'package:forum_devs_clean_architecture/ui/pages/pages.dart';
 
 Widget makeLoginPage() {
 
-  return LoginPage(makeLoginPresenter());
+  return LoginPage(makeGetxLoginPresenter());
 }

@@ -1,32 +1,11 @@
 import 'package:faker/faker.dart';
+import 'package:forum_devs_clean_architecture/data/cache/save_secure_cache_storage.dart';
+import 'package:forum_devs_clean_architecture/data/usecases/usecases.dart';
 import 'package:forum_devs_clean_architecture/domain/helpers/domain_error.dart';
-import 'package:meta/meta.dart';
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:forum_devs_clean_architecture/domain/entities/entities.dart';
-import 'package:forum_devs_clean_architecture/domain/usecases/usecases.dart';
-
-
-class LocalSaveCurrentAccount implements SaveCurrentAccount {
-
-  final SaveSecureCacheStorage saveSecureCacheStorage;
-  LocalSaveCurrentAccount({@required this.saveSecureCacheStorage});
-
-  Future<void> save(AccountEntity account) async {
-
-    try{
-      await saveSecureCacheStorage.saveSecure(key: 'token', value: account.token);
-    }catch(error){
-      throw DomainError.unexpected;
-    }
-
-  }
-}
-
-abstract class SaveSecureCacheStorage {
-  Future<void> saveSecure({@required String key,@required String value});
-}
 
 class SaveSecureCacheStorageSpy extends Mock implements SaveSecureCacheStorage {
 }
